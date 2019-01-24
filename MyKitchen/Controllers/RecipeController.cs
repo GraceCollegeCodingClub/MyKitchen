@@ -40,11 +40,11 @@ namespace MyKitchen.Controllers
 			if (ModelState.IsValid)
 			{
 				var newRecipe = new Recipe();
-				newRecipe.recipe_name = model.recipe_name;
+				newRecipe.RecipeName = model.recipe_name;
 
 				newRecipe = _recipeData.Add(newRecipe);
 
-				return RedirectToAction(nameof(Details), new {Id = newRecipe.recipe_id});
+				return RedirectToAction(nameof(Details), new {Id = newRecipe.RecipeId});
 			}
 			else
 			{

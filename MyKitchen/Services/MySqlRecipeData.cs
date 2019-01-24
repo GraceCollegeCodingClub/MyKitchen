@@ -23,7 +23,7 @@ namespace MyKitchen.Services
 			//query the database for a single recipe where recipe id is
 			//equal to the id that was passed in and return it to the requestor
 			_recipe = (from r in _context.Recipes
-					   where r.recipe_id == id
+					   where r.RecipeId == id
 					   select r).First();
 
 			return _recipe;
@@ -35,8 +35,8 @@ namespace MyKitchen.Services
 			//id that was passed in and return it as a list to the requestor
 
 			_recipes = from r in _context.Recipes
-					   where r.user_id == id
-					   orderby r.recipe_name
+					   where r.UserId == id
+					   orderby r.RecipeName
 					   select r;
 
 			return _recipes;

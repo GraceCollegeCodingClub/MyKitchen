@@ -25,18 +25,18 @@ namespace MyKitchen.Controllers
         }
 
         // GET: Ingredients/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
 	        var ingredient = _ingredientData.GetIngredient(id);
-            if (ingredient == null)
-            {
-                return NotFound();
-            }
+            //if (ingredient == null)
+            //{
+            //    return NotFound();
+            //}
 
             return View(ingredient);
         }
@@ -86,7 +86,7 @@ namespace MyKitchen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ingredient_id,ingredient_name")] Ingredient ingredient)
         {
-            if (id != ingredient.ingredient_id)
+            if (id != ingredient.IngredientId)
             {
                 return NotFound();
             }
@@ -100,7 +100,7 @@ namespace MyKitchen.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IngredientExists(ingredient.ingredient_id))
+                    if (!IngredientExists(ingredient.IngredientId))
                     {
                         return NotFound();
                     }
@@ -123,7 +123,7 @@ namespace MyKitchen.Controllers
             }
 
             var ingredient = await _context.Ingredients
-                .FirstOrDefaultAsync(m => m.ingredient_id == id);
+                .FirstOrDefaultAsync(m => m.IngredientId == id);
             if (ingredient == null)
             {
                 return NotFound();
@@ -145,7 +145,7 @@ namespace MyKitchen.Controllers
 
         private bool IngredientExists(int id)
         {
-            return _context.Ingredients.Any(e => e.ingredient_id == id);
+            return _context.Ingredients.Any(e => e.IngredientId == id);
         }
     }
 }

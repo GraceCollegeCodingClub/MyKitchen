@@ -17,5 +17,8 @@ namespace MyKitchen.Data
 		public DbSet<Ingredient> Ingredients { get; set; }
 		public DbSet<Recipe> Recipes { get; set; }
 		public new DbSet<User> Users { get; set; }
+		public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+		public DbSet<Pantry> Pantries { get; set; }
+		public DbSet<MealPlan> MealPlans { get; set; }
 	}
 }
