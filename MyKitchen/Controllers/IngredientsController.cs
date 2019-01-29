@@ -1,19 +1,20 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyKitchen.Data;
 using MyKitchen.Models;
-using MyKitchen.Services;
 
 namespace MyKitchen.Controllers
 {
     public class IngredientsController : Controller
     {
-        private readonly MyKitchenContext _context;
-	    private MySqlIngredientData _ingredientData;
+        private readonly ApplicationDbContext _context;
 
-        public IngredientsController(MyKitchenContext context)
+        public IngredientsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -25,18 +26,19 @@ namespace MyKitchen.Controllers
         }
 
         // GET: Ingredients/Details/5
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-	        var ingredient = _ingredientData.GetIngredient(id);
-            //if (ingredient == null)
-            //{
-            //    return NotFound();
-            //}
+            var ingredient = await _context.Ingredients
+                .FirstOrDefaultAsync(m => m.IngredientId == id);
+            if (ingredient == null)
+            {
+                return NotFound();
+            }
 
             return View(ingredient);
         }
@@ -52,7 +54,7 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ingredient_id,ingredient_name")] Ingredient ingredient)
+        public async Task<IActionResult> Create([Bind("IngredientId,IngredientName")] Ingredient ingredient)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +86,7 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ingredient_id,ingredient_name")] Ingredient ingredient)
+        public async Task<IActionResult> Edit(int id, [Bind("IngredientId,IngredientName")] Ingredient ingredient)
         {
             if (id != ingredient.IngredientId)
             {
