@@ -78,3 +78,13 @@ C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchenWithLogin\MyKitchen\o
 C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchenWithLogin\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Ingredients\Details.g.cshtml.cs
 C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchenWithLogin\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Ingredients\Edit.g.cshtml.cs
 C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchenWithLogin\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Ingredients\Index.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Ingredients\Create.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Ingredients\Delete.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Ingredients\Details.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Ingredients\Edit.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Ingredients\Index.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Recipes\Create.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Recipes\Delete.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Recipes\Details.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Recipes\Edit.g.cshtml.cs
+C:\Users\Adam\source\repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Recipes\Index.g.cshtml.cs

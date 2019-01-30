@@ -69,7 +69,7 @@ namespace MyKitchen
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Recipes}/{action=Index}/{id?}");
+					template: "{controller=Home}/{action=Index}/{id?}");
 			});
 		}
 	}

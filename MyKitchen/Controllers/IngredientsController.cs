@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyKitchen.Data;
 using MyKitchen.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace MyKitchen.Controllers
 {
@@ -14,15 +17,17 @@ namespace MyKitchen.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public IngredientsController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+	    public IngredientsController(ApplicationDbContext context)
+	    {
+		    _context = context;
+	    }
 
-        // GET: Ingredients
-        public async Task<IActionResult> Index()
+	    // GET: Ingredients
+        public async Task<IActionResult> Index(IHttpContextAccessor httpContextAccessor)
         {
-            return View(await _context.Ingredients.ToListAsync());
+	        var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+			return View(await _context.Ingredients.ToListAsync());
         }
 
         // GET: Ingredients/Details/5

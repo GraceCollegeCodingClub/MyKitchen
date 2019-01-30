@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyKitchen.Data;
 using MyKitchen.Models;
@@ -19,23 +16,30 @@ namespace MyKitchen.Controllers
     {
         private readonly ApplicationDbContext _context;
 	    private MySqlRecipeData _recipeData;
+		private UserManager<IdentityUser> _userManager;
 
-		public RecipesController(ApplicationDbContext context)
+	    public RecipesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
-        }
+	        _userManager = userManager;
+	        _recipeData = new MySqlRecipeData(_context);
+		}
 
 		// GET: Recipes
 		public async Task<IActionResult> Index()
         {
-			var model = _recipeData.GetRecipes(UserId);
+	        var user = await _userManager.GetUserAsync(HttpContext.User);
 
-	        if (model == null)
+	        var model = _recipeData.GetRecipes(user.Id);
+
+			if (model != null)
+			{
+				return View(model);
+			}
+	        else
 	        {
-		        return View();
-	        }
-
-	        return View(model);
+		        return View(await _context.Recipes.ToListAsync());
+			}
 		}
 
         // GET: Recipes/Details/5
@@ -69,9 +73,11 @@ namespace MyKitchen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RecipeId,recipe_name,user_id")] Recipe recipe)
         {
-            if (ModelState.IsValid)
+	        var user = await _userManager.GetUserAsync(HttpContext.User);
+			if (ModelState.IsValid)
             {
-                _context.Add(recipe);
+	            recipe.user_id = user.Id;
+				_context.Add(recipe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
