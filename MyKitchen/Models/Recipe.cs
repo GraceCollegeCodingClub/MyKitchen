@@ -12,6 +12,7 @@ namespace MyKitchen.Models
 	{
 		[Key]
 		public int recipe_id { get; set; }
+		[Display(Name = "Recipe Name")]
 		public string recipe_name { get; set; }
 		public string user_id { get; set; }
 	}
