@@ -1,27 +1,33 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyKitchen.Data;
 using MyKitchen.Models;
-using MyKitchen.Services;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace MyKitchen.Controllers
 {
     public class IngredientsController : Controller
     {
-        private readonly MyKitchenContext _context;
-	    private MySqlIngredientData _ingredientData;
+        private readonly ApplicationDbContext _context;
 
-        public IngredientsController(MyKitchenContext context)
-        {
-            _context = context;
-        }
+	    public IngredientsController(ApplicationDbContext context)
+	    {
+		    _context = context;
+	    }
 
-        // GET: Ingredients
-        public async Task<IActionResult> Index()
+	    // GET: Ingredients
+        public async Task<IActionResult> Index(IHttpContextAccessor httpContextAccessor)
         {
-            return View(await _context.Ingredients.ToListAsync());
+	        var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+			return View(await _context.Ingredients.ToListAsync());
         }
 
         // GET: Ingredients/Details/5
@@ -32,7 +38,8 @@ namespace MyKitchen.Controllers
                 return NotFound();
             }
 
-	        var ingredient = _ingredientData.GetIngredient(id);
+            var ingredient = await _context.Ingredients
+                .FirstOrDefaultAsync(m => m.IngredientId == id);
             if (ingredient == null)
             {
                 return NotFound();
@@ -52,7 +59,7 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ingredient_id,ingredient_name")] Ingredient ingredient)
+        public async Task<IActionResult> Create([Bind("IngredientId,IngredientName")] Ingredient ingredient)
         {
             if (ModelState.IsValid)
             {
@@ -84,9 +91,9 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ingredient_id,ingredient_name")] Ingredient ingredient)
+        public async Task<IActionResult> Edit(int id, [Bind("IngredientId,IngredientName")] Ingredient ingredient)
         {
-            if (id != ingredient.ingredient_id)
+            if (id != ingredient.IngredientId)
             {
                 return NotFound();
             }
@@ -100,7 +107,7 @@ namespace MyKitchen.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IngredientExists(ingredient.ingredient_id))
+                    if (!IngredientExists(ingredient.IngredientId))
                     {
                         return NotFound();
                     }
@@ -123,7 +130,7 @@ namespace MyKitchen.Controllers
             }
 
             var ingredient = await _context.Ingredients
-                .FirstOrDefaultAsync(m => m.ingredient_id == id);
+                .FirstOrDefaultAsync(m => m.IngredientId == id);
             if (ingredient == null)
             {
                 return NotFound();
@@ -145,7 +152,7 @@ namespace MyKitchen.Controllers
 
         private bool IngredientExists(int id)
         {
-            return _context.Ingredients.Any(e => e.ingredient_id == id);
+            return _context.Ingredients.Any(e => e.IngredientId == id);
         }
     }
 }

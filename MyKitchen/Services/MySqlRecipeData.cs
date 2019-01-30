@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using MyKitchen.Data;
 using MyKitchen.Models;
 
@@ -10,14 +9,14 @@ namespace MyKitchen.Services
 	{
 		private Recipe _recipe;
 		private IEnumerable<Recipe> _recipes;
-		private MyKitchenContext _context;
+		private ApplicationDbContext _context;
 
-		public MySqlRecipeData(MyKitchenContext context)
+		public MySqlRecipeData(ApplicationDbContext context)
 		{
 			_context = context;
 		}
 
-		
+
 		public Recipe GetRecipe(int id)
 		{
 			//query the database for a single recipe where recipe id is
@@ -29,7 +28,7 @@ namespace MyKitchen.Services
 			return _recipe;
 		}
 
-		public IEnumerable<Recipe> GetRecipes(int id)
+		public IEnumerable<Recipe> GetRecipes(string id)
 		{
 			//query the databse for all records with a user id equal to the
 			//id that was passed in and return it as a list to the requestor
