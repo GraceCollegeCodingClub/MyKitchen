@@ -229,7 +229,7 @@ namespace MyKitchen.Data.Migrations
                     b.Property<int>("RecipeId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("recipe_name");
+                    b.Property<string>("RecipeName");
 
                     b.Property<int>("user_id");
 

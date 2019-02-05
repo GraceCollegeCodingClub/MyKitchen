@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MyKitchen.Models
 {
-	[Table("recipe", Schema = "my_kitchen_db")]
+	[Table("Recipe", Schema = "MyKitchenDb")]
 	public class Recipe
 	{
 		[Key]
-		public int recipe_id { get; set; }
+		public int RecipeId { get; set; }
 		[Display(Name = "Recipe Name")]
-		public string recipe_name { get; set; }
+		public string RecipeName { get; set; }
 		public string user_id { get; set; }
 	}
 }
