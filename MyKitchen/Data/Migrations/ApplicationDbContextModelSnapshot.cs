@@ -118,12 +118,12 @@ namespace MyKitchen.Data.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<string>("user_id")
+                    b.Property<string>("UserId")
                         .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("user_id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims");
                 });
@@ -138,23 +138,23 @@ namespace MyKitchen.Data.Migrations
 
                     b.Property<string>("ProviderDisplayName");
 
-                    b.Property<string>("user_id")
+                    b.Property<string>("UserId")
                         .IsRequired();
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex("user_id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.Property<string>("user_id");
+                    b.Property<string>("UserId");
 
                     b.Property<string>("RoleId");
 
-                    b.HasKey("user_id", "RoleId");
+                    b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
@@ -163,7 +163,7 @@ namespace MyKitchen.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.Property<string>("user_id");
+                    b.Property<string>("UserId");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128);
@@ -173,7 +173,7 @@ namespace MyKitchen.Data.Migrations
 
                     b.Property<string>("Value");
 
-                    b.HasKey("user_id", "LoginProvider", "Name");
+                    b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
                 });
@@ -217,7 +217,7 @@ namespace MyKitchen.Data.Migrations
 
                     b.Property<int>("IngredientId");
 
-                    b.Property<int>("user_id");
+                    b.Property<int>("UserId");
 
                     b.HasKey("PantryId");
 
@@ -231,7 +231,7 @@ namespace MyKitchen.Data.Migrations
 
                     b.Property<string>("RecipeName");
 
-                    b.Property<int>("user_id");
+                    b.Property<int>("UserId");
 
                     b.HasKey("RecipeId");
 
@@ -266,7 +266,7 @@ namespace MyKitchen.Data.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -274,7 +274,7 @@ namespace MyKitchen.Data.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -287,7 +287,7 @@ namespace MyKitchen.Data.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -295,7 +295,7 @@ namespace MyKitchen.Data.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

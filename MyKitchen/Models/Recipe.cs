@@ -14,6 +14,6 @@ namespace MyKitchen.Models
 		public int RecipeId { get; set; }
 		[Display(Name = "Recipe Name")]
 		public string RecipeName { get; set; }
-		public string user_id { get; set; }
+		public string UserId { get; set; }
 	}
 }

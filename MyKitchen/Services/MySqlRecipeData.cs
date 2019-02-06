@@ -34,7 +34,7 @@ namespace MyKitchen.Services
 			//id that was passed in and return it as a list to the requestor
 
 			_recipes = from r in _context.Recipes
-					   where r.user_id == id
+					   where r.UserId == id
 					   orderby r.RecipeName
 					   select r;
 

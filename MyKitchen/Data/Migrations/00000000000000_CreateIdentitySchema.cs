@@ -168,12 +168,12 @@ namespace MyKitchen.Data.Migrations
 			migrationBuilder.CreateIndex(
 				name: "IX_AspNetUserClaims_UserId",
 				table: "AspNetUserClaims",
-				column: "user_id");
+				column: "UserId");
 
 			migrationBuilder.CreateIndex(
 				name: "IX_AspNetUserLogins_UserId",
 				table: "AspNetUserLogins",
-				column: "user_id");
+				column: "UserId");
 
 			migrationBuilder.CreateIndex(
 				name: "IX_AspNetUserRoles_RoleId",

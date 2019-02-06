@@ -47,7 +47,7 @@ namespace MyKitchen.Controllers
             }
 
             var recipe = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.recipe_id == id);
+                .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipe == null)
             {
                 return NotFound();
@@ -67,12 +67,12 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,recipe_name,user_id")] Recipe recipe)
+        public async Task<IActionResult> Create([Bind("RecipeId,RecipeName,UserId")] Recipe recipe)
         {
 	        var user = await _userManager.GetUserAsync(HttpContext.User);
 			if (ModelState.IsValid)
             {
-	            recipe.user_id = user.Id;
+	            recipe.UserId = user.Id;
 				_context.Add(recipe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -101,10 +101,10 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("recipe_id,recipe_name,user_id")] Recipe recipe)
+        public async Task<IActionResult> Edit(int id, [Bind("recipe_id,recipe_name,UserId")] Recipe recipe)
         {
 			//recipe = 
-            if (id != recipe.recipe_id)
+            if (id != recipe.RecipeId)
             {
                 return NotFound();
             }
@@ -118,7 +118,7 @@ namespace MyKitchen.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RecipeExists(recipe.recipe_id))
+                    if (!RecipeExists(recipe.RecipeId))
                     {
 						Console.WriteLine("Recipe does not exist");
                         return NotFound();
@@ -142,7 +142,7 @@ namespace MyKitchen.Controllers
             }
 
             var recipe = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.recipe_id == id);
+                .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipe == null)
             {
                 return NotFound();
@@ -164,7 +164,7 @@ namespace MyKitchen.Controllers
 
         private bool RecipeExists(int id)
         {
-            return _context.Recipes.Any(e => e.recipe_id == id);
+            return _context.Recipes.Any(e => e.RecipeId == id);
         }
     }
 }
