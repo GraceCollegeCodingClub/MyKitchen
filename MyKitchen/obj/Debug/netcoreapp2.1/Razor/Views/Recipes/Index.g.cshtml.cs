@@ -67,7 +67,7 @@ using MyKitchen.Models;
             WriteLiteral("\r\n<h2>My Recipes</h2>\r\n\r\n<p>\r\n    ");
             EndContext();
             BeginContext(127, 61, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0b1aa86700f84d80a59c0c7d81d2e56b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "029bdb78857a4bd798b330dc481d0ebc", async() => {
                 BeginContext(174, 10, true);
                 WriteLiteral("Create New");
                 EndContext();
@@ -118,7 +118,7 @@ using MyKitchen.Models;
             WriteLiteral("\r\n            </td>\r\n            <td>\r\n                ");
             EndContext();
             BeginContext(594, 59, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d5b9cb88f4f14d0ba84b26c27bc25c45", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9fbe3252a8db4e86906c89c5cf3d2738", async() => {
                 BeginContext(645, 4, true);
                 WriteLiteral("Edit");
                 EndContext();
@@ -153,7 +153,7 @@ using MyKitchen.Models;
             WriteLiteral(" |\r\n                ");
             EndContext();
             BeginContext(673, 65, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8e6d0651e1c8488c83ce06030bace8e8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0043210116fb4af7b506e7ce892ad8fb", async() => {
                 BeginContext(727, 7, true);
                 WriteLiteral("Details");
                 EndContext();
@@ -188,7 +188,7 @@ using MyKitchen.Models;
             WriteLiteral(" |\r\n                ");
             EndContext();
             BeginContext(758, 63, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f496d57e9fca4c488584e8102c885859", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a821c93eef7d4af1b19b856136da11f2", async() => {
                 BeginContext(811, 6, true);
                 WriteLiteral("Delete");
                 EndContext();

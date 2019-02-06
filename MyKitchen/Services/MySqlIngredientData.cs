@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using MyKitchen.Data;
 using MyKitchen.Models;
 
@@ -22,6 +23,14 @@ namespace MyKitchen.Services
 			_ingredient = _context.Ingredients.FirstOrDefault(i => i.IngredientId == id);
 
 			return _ingredient;
+		}
+
+		public IEnumerable<Ingredient> GetIngredients()
+		{
+			_ingredients = from r in _context.Ingredients
+						   select r;
+
+			return _ingredients;
 		}
 
 		public IEnumerable<Ingredient> GetRecipeIngredients(int RecipeId)

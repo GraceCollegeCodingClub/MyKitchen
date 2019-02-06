@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using MyKitchen.Data;
 using MyKitchen.Models;
 using MyKitchen.Services;
+using MyKitchen.ViewModels;
 
 namespace MyKitchen.Controllers
 {
@@ -19,12 +20,16 @@ namespace MyKitchen.Controllers
 	    private MySqlRecipeData _recipeData;
 		private UserManager<IdentityUser> _userManager;
 	    private ILogger _logger;
+	    private MySqlIngredientData _ingredientData;
+	    //private MySqlStepData _stepData;
 
 	    public RecipesController(ApplicationDbContext context, UserManager<IdentityUser> userManager, ILogger<RecipesController> logger)
         {
             _context = context;
 	        _userManager = userManager;
 	        _recipeData = new MySqlRecipeData(_context);
+			_ingredientData = new MySqlIngredientData(_context);
+	        //_stepData = new MySqlStepData(_context);
 	        _logger = logger;
         }
 
@@ -59,7 +64,13 @@ namespace MyKitchen.Controllers
         // GET: Recipes/Create
         public IActionResult Create()
         {
-            return View();
+	        var model = new RecipeCreateViewModel();
+
+	        model.Ingredients = _ingredientData.GetIngredients();
+
+	        //model.Steps = _stepData.GetSteps();
+
+            return View(model);
         }
 
         // POST: Recipes/Create
@@ -101,7 +112,7 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("recipe_id,recipe_name,UserId")] Recipe recipe)
+        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,RecipeName,UserId")] Recipe recipe)
         {
 			//recipe = 
             if (id != recipe.RecipeId)
