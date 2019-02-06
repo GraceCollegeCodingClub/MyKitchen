@@ -21,7 +21,7 @@ namespace MyKitchen.Controllers
 		private UserManager<IdentityUser> _userManager;
 	    private ILogger _logger;
 	    private MySqlIngredientData _ingredientData;
-	    //private MySqlStepData _stepData;
+	    private MySqlStepData _stepData;
 
 	    public RecipesController(ApplicationDbContext context, UserManager<IdentityUser> userManager, ILogger<RecipesController> logger)
         {
