@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MyKitchen.Data;
 using MyKitchen.Models;
 using MyKitchen.Services;
@@ -17,13 +18,15 @@ namespace MyKitchen.Controllers
         private readonly ApplicationDbContext _context;
 	    private MySqlRecipeData _recipeData;
 		private UserManager<IdentityUser> _userManager;
+	    private ILogger _logger;
 
-	    public RecipesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+	    public RecipesController(ApplicationDbContext context, UserManager<IdentityUser> userManager, ILogger<RecipesController> logger)
         {
             _context = context;
 	        _userManager = userManager;
 	        _recipeData = new MySqlRecipeData(_context);
-		}
+	        _logger = logger;
+        }
 
 		// GET: Recipes
 		public async Task<IActionResult> Index()
@@ -32,15 +35,8 @@ namespace MyKitchen.Controllers
 
 	        var model = _recipeData.GetRecipes(user.Id);
 
-			if (model != null)
-			{
-				return View(model);
-			}
-	        else
-	        {
-		        return View(await _context.Recipes.ToListAsync());
-			}
-		}
+	        return View(model);
+        }
 
         // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -51,7 +47,7 @@ namespace MyKitchen.Controllers
             }
 
             var recipe = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.RecipeId == id);
+                .FirstOrDefaultAsync(m => m.recipe_id == id);
             if (recipe == null)
             {
                 return NotFound();
@@ -71,7 +67,7 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,RecipeName,user_id")] Recipe recipe)
+        public async Task<IActionResult> Create([Bind("RecipeId,recipe_name,user_id")] Recipe recipe)
         {
 	        var user = await _userManager.GetUserAsync(HttpContext.User);
 			if (ModelState.IsValid)
@@ -105,9 +101,10 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,RecipeName,user_id")] Recipe recipe)
+        public async Task<IActionResult> Edit(int id, [Bind("recipe_id,recipe_name,user_id")] Recipe recipe)
         {
-            if (id != recipe.RecipeId)
+			//recipe = 
+            if (id != recipe.recipe_id)
             {
                 return NotFound();
             }
@@ -121,8 +118,9 @@ namespace MyKitchen.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RecipeExists(recipe.RecipeId))
+                    if (!RecipeExists(recipe.recipe_id))
                     {
+						Console.WriteLine("Recipe does not exist");
                         return NotFound();
                     }
                     else
@@ -144,7 +142,7 @@ namespace MyKitchen.Controllers
             }
 
             var recipe = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.RecipeId == id);
+                .FirstOrDefaultAsync(m => m.recipe_id == id);
             if (recipe == null)
             {
                 return NotFound();
@@ -166,7 +164,7 @@ namespace MyKitchen.Controllers
 
         private bool RecipeExists(int id)
         {
-            return _context.Recipes.Any(e => e.RecipeId == id);
+            return _context.Recipes.Any(e => e.recipe_id == id);
         }
     }
 }
