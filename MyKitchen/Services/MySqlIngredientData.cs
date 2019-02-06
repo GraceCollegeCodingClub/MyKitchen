@@ -36,8 +36,8 @@ namespace MyKitchen.Services
 		public IEnumerable<Ingredient> GetRecipeIngredients(int RecipeId)
 		{
 			_ingredientIds = from r in _context.RecipeIngredients
-				where r.RecipeId == RecipeId
-				select r.RecipeId;
+							 where r.RecipeId == RecipeId
+							 select r.RecipeId;
 
 			_ingredients = _context.Ingredients.Where(ing => _ingredientIds.Any(i => ing.IngredientId.Equals(i)));
 
@@ -47,8 +47,8 @@ namespace MyKitchen.Services
 		public IEnumerable<Ingredient> GetPantryIngredients(int UserId)
 		{
 			_ingredientIds = from p in _context.Pantries
-				where p.UserId == UserId
-				select p.IngredientId;
+							 where p.UserId == UserId
+							 select p.IngredientId;
 
 			_ingredients = _context.Ingredients.Where(ing => _ingredientIds.Any(i => ing.IngredientId.Equals(i)));
 
