@@ -18,10 +18,22 @@
                 <input asp-for="Recipe.RecipeName" class="form-control" />
                 <span asp-validation-for="Recipe.RecipeName" class="text-danger"></span>
             </div>
-    <!--iterate through the ingredients from the Ingredients IEnumerable element in the model and display them in a select drop down-->
             <div class="form-group">
                 <input asp-for="Recipe.UserId" class="form-control" type="hidden" />
                 <span asp-validation-for="Recipe.UserId" class="text-danger"></span>
+            </div>
+            <!--this iterates through the ingredients from the Ingredients IEnumerable element in the model and displays them in a multi-select drop down-->
+            <!--the id needs to be corrected to submit back to the server for selected items-->
+            <div class="form-group">
+                <label asp-for="Ingredients" class="control-label"></label>
+                <select asp-for="Ingredients" class="form-control" asp-items="">
+                    @foreach (var ingredient in Model.Ingredients)
+                    {
+                        <option>@ingredient.IngredientName</option>
+                        <option type="hidden" value="@ingredient.IngredientId"></option>
+                    }
+                </select>
+                <span asp-validation-for="Ingredients" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
