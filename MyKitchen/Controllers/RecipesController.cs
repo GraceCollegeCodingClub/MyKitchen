@@ -91,13 +91,13 @@ namespace MyKitchen.Controllers
 				//Recipe recipe = model.Recipe;
 
 				List <RecipeIngredient> recipeIngredient = new List<RecipeIngredient>();
-				foreach (var ingredientId in model.IngredientsForRecipe)
+				for (var i = 0; i < model.IngredientsForRecipe.Count(); i++)
 				{
 					RecipeIngredient temp = new RecipeIngredient
 					{
 						RecipeId = model.Recipe.RecipeId,
-						IngredientId = ingredientId,
-						Amount = String.Empty
+						IngredientId = model.IngredientsForRecipe[i],
+						Amount = model.AmountsForIngredients[i]
 					};
 					_context.Add(temp);
 				}

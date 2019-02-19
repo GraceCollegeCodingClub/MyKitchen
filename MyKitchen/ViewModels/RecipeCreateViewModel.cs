@@ -8,6 +8,7 @@ namespace MyKitchen.ViewModels
 	{
 		public IEnumerable<Ingredient> Ingredients { get; set; }
 		public int[] IngredientsForRecipe { get; set; }
+		public string[] AmountsForIngredients { get; set; }
 		public IEnumerable<Step> Steps { get; set; }
 		public Recipe Recipe { get; set; }
 	}
