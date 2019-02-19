@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -78,17 +79,35 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,RecipeName,UserId")] Recipe recipe)
+        public async Task<IActionResult> Create(RecipeCreateViewModel model)
         {
 	        var user = await _userManager.GetUserAsync(HttpContext.User);
 			if (ModelState.IsValid)
-            {
-	            recipe.UserId = user.Id;
-				_context.Add(recipe);
-                await _context.SaveChangesAsync();
+			{
+				model.Recipe.UserId = user.Id;
+				model.Recipe.RecipeId =
+					_context.Recipes.OrderByDescending(recipe => recipe.RecipeId).First().RecipeId;
+				model.Recipe.RecipeId++;
+				//Recipe recipe = model.Recipe;
+
+				List <RecipeIngredient> recipeIngredient = new List<RecipeIngredient>();
+				foreach (var ingredientId in model.IngredientsForRecipe)
+				{
+					RecipeIngredient temp = new RecipeIngredient
+					{
+						RecipeId = model.Recipe.RecipeId,
+						IngredientId = ingredientId,
+						Amount = String.Empty
+					};
+					_context.Add(temp);
+				}
+
+				_context.Add(model.Recipe);
+
+				await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(recipe);
+            return View(model);
         }
 
         // GET: Recipes/Edit/5
