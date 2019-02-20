@@ -85,9 +85,17 @@ namespace MyKitchen.Controllers
 			if (ModelState.IsValid)
 			{
 				model.Recipe.UserId = user.Id;
-				model.Recipe.RecipeId =
-					_context.Recipes.OrderByDescending(recipe => recipe.RecipeId).First().RecipeId;
-				model.Recipe.RecipeId++;
+				if (_context.Recipes.Count() != 0)
+				{
+					model.Recipe.RecipeId =
+						_context.Recipes.OrderByDescending(recipe => recipe.RecipeId).First().RecipeId;
+					model.Recipe.RecipeId++;
+				}
+				else
+				{
+					model.Recipe.RecipeId = 1;
+				}
+				
 				//Recipe recipe = model.Recipe;
 
 				List <RecipeIngredient> recipeIngredient = new List<RecipeIngredient>();
