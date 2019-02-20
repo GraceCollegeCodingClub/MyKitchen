@@ -81,9 +81,9 @@ namespace MyKitchen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RecipeCreateViewModel model)
         {
-	        var user = await _userManager.GetUserAsync(HttpContext.User);
 			if (ModelState.IsValid)
 			{
+				var user = await _userManager.GetUserAsync(HttpContext.User);
 				model.Recipe.UserId = user.Id;
 				if (_context.Recipes.Count() != 0)
 				{
