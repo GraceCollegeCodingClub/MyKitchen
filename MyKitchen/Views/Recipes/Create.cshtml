@@ -41,6 +41,11 @@
                 <button type="button" onclick="AddIngredient(@Iterator)" id="IngredientButton" class="btn btn-default">Add Ingredient</button>
             </div>
             <div class="form-group">
+                <label asp-for="Steps" class="control-label"></label>
+                <textarea asp-for="Steps" class="form-control"></textarea>
+                <span asp-validation-for="Steps" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
@@ -59,8 +64,7 @@
     function AddIngredient(iterator) {
         iterator += 1;
         var div = document.createElement('div');
-        div.innerHTML = '<div class="form-group">\
-            <label class="control-label" for="@Model.IngredientsForRecipe">Ingredient</label>\
+        div.innerHTML = '<label class="control-label" for="@Model.IngredientsForRecipe">Ingredient</label>\
             <label class="control-label" for="@Model.AmountsForIngredients">Amount</label>\
             \
             <select class="form-control" data-val="true" data-val-required="The Int32 field is required." id="IngredientsForRecipe_' + iterator + '_" name="IngredientsForRecipe[' + iterator + ']">\
@@ -72,8 +76,7 @@
             <span class="text-danger field-validation-valid" data-valmsg-for="IngredientsForRecipe" data-valmsg-replace="true"></span>\
             <span class="text-danger field-validation-valid" data-valmsg-for="AmountsForIngredients" data-valmsg-replace="true"></span>\
             \
-            <br>\
-            </div>';
+            <br>';
         document.getElementById('ExtraIngredients').appendChild(div);
     }
 </script>

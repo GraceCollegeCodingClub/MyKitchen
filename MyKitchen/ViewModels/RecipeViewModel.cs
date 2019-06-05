@@ -13,6 +13,7 @@ namespace MyKitchen.ViewModels
 		public int[] IngredientsForRecipe { get; set; }
 		[Display(Name = "Amount")]
 		public string[] AmountsForIngredients { get; set; }
+		[Display(Name = "Steps")]
 		public IEnumerable<Step> Steps { get; set; }
 		public Recipe Recipe { get; set; }
 	}
