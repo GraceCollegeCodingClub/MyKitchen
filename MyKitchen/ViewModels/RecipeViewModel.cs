@@ -6,7 +6,7 @@ using MyKitchen.Models;
 
 namespace MyKitchen.ViewModels
 {
-	public class RecipeCreateViewModel
+	public class RecipeViewModel
 	{
 		public IEnumerable<Ingredient> Ingredients { get; set; }
 		[Display(Name = "Ingredient")]

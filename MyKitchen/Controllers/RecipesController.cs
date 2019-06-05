@@ -65,7 +65,7 @@ namespace MyKitchen.Controllers
         // GET: Recipes/Create
         public IActionResult Create()
         {
-	        var model = new RecipeCreateViewModel();
+	        var model = new RecipeViewModel();
 
 	        model.Ingredients = _ingredientData.GetIngredients();
 
@@ -79,7 +79,7 @@ namespace MyKitchen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RecipeCreateViewModel model)
+        public async Task<IActionResult> Create(RecipeViewModel model)
         {
 			if (ModelState.IsValid)
 			{
@@ -95,8 +95,6 @@ namespace MyKitchen.Controllers
 				{
 					model.Recipe.RecipeId = 1;
 				}
-				
-				//Recipe recipe = model.Recipe;
 
 				List <RecipeIngredient> recipeIngredient = new List<RecipeIngredient>();
 				for (var i = 0; i < model.IngredientsForRecipe.Count(); i++)
@@ -199,6 +197,15 @@ namespace MyKitchen.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+	    public ActionResult AddIngredient([FromBody] Ingredient ingredients)
+	    {
+			RecipeViewModel model = new RecipeViewModel();
+
+		    model.Ingredients.Append(ingredients);
+
+		    return PartialView("_IngredientPartial", model);
+	    }
 
         private bool RecipeExists(int id)
         {
