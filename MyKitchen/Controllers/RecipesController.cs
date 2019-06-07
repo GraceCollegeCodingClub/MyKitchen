@@ -96,7 +96,6 @@ namespace MyKitchen.Controllers
 					model.Recipe.RecipeId = 1;
 				}
 
-				List <RecipeIngredient> recipeIngredient = new List<RecipeIngredient>();
 				for (var i = 0; i < model.IngredientsForRecipe.Count(); i++)
 				{
 					RecipeIngredient temp = new RecipeIngredient
@@ -106,6 +105,22 @@ namespace MyKitchen.Controllers
 						Amount = model.AmountsForIngredients[i]
 					};
 					_context.Add(temp);
+				}
+
+				string[] stepStrings = model.Steps.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+				var stepNumber = 1;
+
+				foreach (var step in stepStrings)
+				{
+					Step temp = new Step()
+					{
+						StepNumber = stepNumber,
+						StepInstruction = step,
+						RecipeId = model.Recipe.RecipeId
+					};
+					_context.Add(temp);
+
+					stepNumber++;
 				}
 
 				_context.Add(model.Recipe);
@@ -198,18 +213,20 @@ namespace MyKitchen.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-	    public ActionResult AddIngredient([FromBody] Ingredient ingredients)
-	    {
-			RecipeViewModel model = new RecipeViewModel();
-
-		    model.Ingredients.Append(ingredients);
-
-		    return PartialView("_IngredientPartial", model);
-	    }
-
         private bool RecipeExists(int id)
         {
             return _context.Recipes.Any(e => e.RecipeId == id);
         }
+
+	    public async Task<IActionResult> GetExtraIngredientsPartial([FromBody]RecipeViewModel model)
+	    {
+		    RecipeViewModel recipeModel = new RecipeViewModel()
+		    {
+			    Ingredients = model.Ingredients,
+			    Iterator = model.Iterator
+		    };
+
+		    return PartialView("_ExtraIngredientsPartial", recipeModel);
+	    }
     }
 }

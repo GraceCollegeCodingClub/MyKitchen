@@ -14,7 +14,8 @@ namespace MyKitchen.ViewModels
 		[Display(Name = "Amount")]
 		public string[] AmountsForIngredients { get; set; }
 		[Display(Name = "Steps")]
-		public IEnumerable<Step> Steps { get; set; }
+		public string Steps { get; set; }
 		public Recipe Recipe { get; set; }
+		public int Iterator { get; set; }
 	}
 }

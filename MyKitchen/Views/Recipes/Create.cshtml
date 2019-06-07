@@ -1,82 +1,92 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Identity
+@using MyKitchen.ViewModels
 @model MyKitchen.ViewModels.RecipeViewModel
 
 @{
-    ViewData["Title"] = "Create";
-    var Iterator = 0;
+	ViewData["Title"] = "Create";
+	Model.Iterator = 0;
 }
 
 <h2>New Recipe</h2>
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Recipe.RecipeName" class="control-label"></label>
-                <input asp-for="Recipe.RecipeName" class="form-control" />
-                <span asp-validation-for="Recipe.RecipeName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Recipe.UserId" class="form-control" type="hidden" />
-                <span asp-validation-for="Recipe.UserId" class="text-danger"></span>
-            </div>
-            <!--this iterates through the ingredients from the Ingredients IEnumerable element in the model and displays them in a multi-select drop down-->
-            <div class="form-group">
-                <label asp-for="IngredientsForRecipe" class="control-label"></label>
-                <label asp-for="AmountsForIngredients" class="control-label"></label>
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Recipe.RecipeName" class="control-label"></label>
+				<input asp-for="Recipe.RecipeName" class="form-control" />
+				<span asp-validation-for="Recipe.RecipeName" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input asp-for="Recipe.UserId" class="form-control" type="hidden" />
+				<span asp-validation-for="Recipe.UserId" class="text-danger"></span>
+			</div>
+			<!--this iterates through the ingredients from the Ingredients IEnumerable element in the model and displays them in a multi-select drop down-->
+			<div class="form-inline" id="InitialIngredient">
+				<div class="form-group">
+					<label asp-for="IngredientsForRecipe" class="control-label"></label>
+					<br/>
+					<select asp-for="IngredientsForRecipe[Model.Iterator]" class="form-control" asp-items="@(new SelectList(Model.Ingredients, "IngredientId", "IngredientName"))"></select>
+					<span asp-validation-for="IngredientsForRecipe" class="text-danger"></span>
+				</div>
 
-                <select asp-for="IngredientsForRecipe[Iterator]" class="form-control" asp-items="@(new SelectList(Model.Ingredients,"IngredientId","IngredientName"))"></select>
-                <input asp-for="AmountsForIngredients[Iterator]" class="form-control" />
-
-                <span asp-validation-for="IngredientsForRecipe" class="text-danger"></span>
-                <span asp-validation-for="AmountsForIngredients" class="text-danger"></span>
-                
-                <br/>
-            </div>
-            <div class="form-group">
-                <div id="ExtraIngredients"></div>
-                <button type="button" onclick="AddIngredient(@Iterator)" id="IngredientButton" class="btn btn-default">Add Ingredient</button>
-            </div>
-            <div class="form-group">
-                <label asp-for="Steps" class="control-label"></label>
-                <textarea asp-for="Steps" class="form-control"></textarea>
-                <span asp-validation-for="Steps" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+				<div class="form-group">
+					<label asp-for="AmountsForIngredients" class="control-label" float="right"></label>
+					<br/>
+					<input asp-for="AmountsForIngredients[Model.Iterator]" class="form-control" />
+					<span asp-validation-for="AmountsForIngredients" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="form-inline">
+				<div id="ExtraIngredients"></div>
+				<button type="button"  id="IngredientButton" onclick="AddIngredient()" class="btn btn-default">Add Ingredient</button>
+			</div>
+			<div class="form-group">
+				<label asp-for="Steps" class="control-label"></label>
+				<textarea asp-for="Steps" class="form-control"></textarea>
+				<span asp-validation-for="Steps" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-default" />
+			</div>
+		</form>
+	</div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
 <script>
-    function AddIngredient(iterator) {
-        iterator += 1;
-        var div = document.createElement('div');
-        div.innerHTML = '<label class="control-label" for="@Model.IngredientsForRecipe">Ingredient</label>\
-            <label class="control-label" for="@Model.AmountsForIngredients">Amount</label>\
-            \
-            <select class="form-control" data-val="true" data-val-required="The Int32 field is required." id="IngredientsForRecipe_' + iterator + '_" name="IngredientsForRecipe[' + iterator + ']">\
-            <option value="1">Green Onion</option>\
-            <option value="2">Cheddar Cheese</option>\
-            </select>\
-            <input class="form-control" type="text" id="AmountsForIngredients_' + iterator + '_" name="AmountsForIngredients[' + iterator + ']" value="">\
-            \
-            <span class="text-danger field-validation-valid" data-valmsg-for="IngredientsForRecipe" data-valmsg-replace="true"></span>\
-            <span class="text-danger field-validation-valid" data-valmsg-for="AmountsForIngredients" data-valmsg-replace="true"></span>\
-            \
-            <br>';
-        document.getElementById('ExtraIngredients').appendChild(div);
-    }
+	function AddIngredient() {
+		var model =
+		{
+			Iterator: @Model.Iterator,
+			Ingredients: @Html.Raw(Json.Serialize(Model.Ingredients))
+			//__RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+		};
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("GetExtraIngredientsPartial","Recipes")',
+			contentType: 'application/json',
+			data: JSON.stringify(model),
+			success: function (data) {
+				alert(data);
+				var extraIngredients = document.createElement("div");
+				extraIngredients.innerHTML = data;
+				document.getElementById("ExtraIngredients").appendChild(extraIngredients);
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+			}
+		});
+		return false; //prevent default action(submit) for a button
+	};
 </script>

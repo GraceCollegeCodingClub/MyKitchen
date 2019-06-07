@@ -1,0 +1,20 @@
+﻿@model MyKitchen.ViewModels.RecipeViewModel
+@{
+	Model.Iterator = Model.Iterator + 1;
+}
+
+<div class="form-inline" id="InitialIngredient">
+	<div class="form-group">
+		<label asp-for="IngredientsForRecipe" class="control-label"></label>
+		<br/>
+		<select asp-for="IngredientsForRecipe[Model.Iterator]" class="form-control" asp-items="@(new SelectList(Model.Ingredients, "IngredientId", "IngredientName"))"></select>
+		<span asp-validation-for="IngredientsForRecipe" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="AmountsForIngredients" class="control-label" float="right"></label>
+		<br/>
+		<input asp-for="AmountsForIngredients[Model.Iterator]" class="form-control" />
+		<span asp-validation-for="AmountsForIngredients" class="text-danger"></span>
+	</div>
+</div>

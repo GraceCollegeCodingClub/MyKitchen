@@ -133,3 +133,4 @@ C:\Users\Adam\source\repos\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\MyKitchen
 C:\Users\Adam\source\repos\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\MyKitchen.dll
 C:\Users\Adam\source\repos\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\MyKitchen.pdb
 C:\Users\Adam\source\repos\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\MyKitchen.csproj.CopyComplete
+C:\Users\Adam\Source\Repos\GraceCollegeCodingClub\MyKitchen\MyKitchen\obj\Debug\netcoreapp2.1\Razor\Views\Recipes\_ExtraIngredientsPartial.g.cshtml.cs
